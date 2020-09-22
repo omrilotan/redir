@@ -1,0 +1,28 @@
+<doctype html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+		<meta name="description" content="Redirect">
+		<meta name='googlebot' content='noindex'>
+		<meta name='robots' content='noindex'>
+		<title>Redirect</title>
+		<style>
+* { margin: 0; padding: 0; outline: 0; }
+html, body { height: 100%; display: flex; justify-content: center; align-items: center; }
+main { font-size: 30px; color: #454545; }
+@media (orientation:portrait) { main { font-size:5vw; } }
+		</style>
+	</head>
+	<body>
+		<main>You are being redirected</main>
+		<script>
+const dest = location.search.replace('?', '');
+if (dest) { window.location.href = dest; } else {
+	const main = document.querySelector('main');
+	main.removeChild(main.firstChild);
+}
+		</script>
+	</body>
+</html>
