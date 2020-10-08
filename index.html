@@ -1,4 +1,4 @@
-<doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 	<head>
 		<meta charset="utf-8">
@@ -11,23 +11,38 @@
 		<style>
 * { margin: 0; padding: 0; outline: 0; }
 html, body { height: 100%; display: flex; justify-content: center; align-items: center; }
-main { font-size: 30px; color: #454545; }
-@media (orientation:portrait) { main { font-size:5vw; } }
+main, input {
+	font: 100 100%/1.4 -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Lucida Grande, Arial, sans-serif;
+	font-size: 30px; color: #454545;
+}
+body, form, input { width: 90%; }
+input { padding: .2em .5em; }
+@media (orientation:portrait) { main, input { font-size:5vw; } }
+form { display: none; }
+main { display: block; }
+body.form form { display: block; }
+body.form main { display: none; }
 		</style>
 	</head>
 	<body>
 		<main>You are being redirected</main>
+		<form method="get" action=".">
+			<input type="text" name="to" placeholder="mailto:me@email.com"/>
+		</form>
 		<script>
-const dest = location.search.replace('?', '');
+let dest = location.search.replace('?', '');
 if (dest) {
-	window.location.href = dest;
+	if (dest.startsWith('to=')) {
+		dest = dest.replace('to=', '');
+	}
+	dest = decodeURIComponent(dest);
+
 	const meta = document.createElement('meta');
 	meta.setAttribute('http-equiv', 'refresh');
 	meta.setAttribute('content', '0; url=' + dest);
 	document.body.appendChild(meta);
 } else {
-	const main = document.querySelector('main');
-	main.removeChild(main.firstChild);
+	document.body.className = 'form';
 }
 		</script>
 	</body>
