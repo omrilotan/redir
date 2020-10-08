@@ -19,7 +19,13 @@ main { font-size: 30px; color: #454545; }
 		<main>You are being redirected</main>
 		<script>
 const dest = location.search.replace('?', '');
-if (dest) { window.location.href = dest; } else {
+if (dest) {
+	window.location.href = dest;
+	const meta = document.createElement('meta');
+	meta.setAttribute('http-equiv', 'refresh');
+	meta.setAttribute('content', '0; url=' + dest);
+	document.body.appendChild(meta);
+} else {
 	const main = document.querySelector('main');
 	main.removeChild(main.firstChild);
 }
